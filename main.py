@@ -10,7 +10,9 @@ from fastapi.responses import PlainTextResponse
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from dotenv import load_dotenv
 from models import Dog, Timestamp
-from schema import Dog as DogSchema, DogType as DogTypeSchema
+from schema import Dog as DogSchema
+from schema import DogType as DogTypeSchema
+from schema import Timestamp as TimestampSchema
 
 
 env_path = Path('.') / '.env'
@@ -37,7 +39,7 @@ def root():
     return PlainTextResponse(content=description)
 
 
-@app.post("/post", summary='Get Post')
+@app.post("/post", response_model=TimestampSchema, summary='Get Post')
 def post_timestamp():
     """Фиксация времени запроса"""
     new_timestamp = Timestamp(timestamp=datetime.datetime.now())

@@ -31,7 +31,7 @@ class Timestamp(BaseModel):
     """Class for timestamps of post queries"""
 
     id: int
-    timestamp: datetime
+    timestamp: int
 
     class Config:
         orm_mode = True
