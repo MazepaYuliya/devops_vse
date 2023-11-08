@@ -2,14 +2,15 @@
 import datetime
 import os
 from pathlib import Path
+from typing import List, Optional
 
 import uvicorn
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import PlainTextResponse
 from fastapi_sqlalchemy import DBSessionMiddleware, db
 from dotenv import load_dotenv
-from models import Dog, DogType, Timestamp
-from schema import DogSchema, TimestampSchema
+from models import Dog, Timestamp
+from schema import Dog as DogSchema, DogType as DogTypeSchema
 
 
 env_path = Path('.') / '.env'
@@ -36,7 +37,7 @@ def root():
     return PlainTextResponse(content=description)
 
 
-@app.post("/post", response_model=TimestampSchema, summary='Get Post')
+@app.post("/post", summary='Get Post')
 def post_timestamp():
     """Фиксация времени запроса"""
     new_timestamp = Timestamp(timestamp=datetime.datetime.now())
@@ -48,10 +49,13 @@ def post_timestamp():
     }
 
 
-@app.get("/dog", summary='Get Dogs')
-def get_dogs(kind: DogType):
+@app.get("/dog", response_model=List[DogSchema], summary='Get Dogs')
+def get_dogs(kind: Optional[DogTypeSchema] = None):
     """Получение списка собак по породе"""
-    dogs = db.session.query(Dog).filter(Dog.kind == kind).all()
+    if kind:
+        dogs = db.session.query(Dog).filter(Dog.kind == kind).all()
+    else:
+        dogs = db.session.query(Dog).all()
     return dogs
 
 

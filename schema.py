@@ -3,7 +3,7 @@ from enum import Enum
 from pydantic import BaseModel
 
 
-class DogTypeSchema(str, Enum):
+class DogType(str, Enum):
     """Class for types of dogs"""
 
     terrier = "terrier"
@@ -15,19 +15,19 @@ class DogTypeSchema(str, Enum):
         use_enum_values = True
 
 
-class DogSchema(BaseModel):
+class Dog(BaseModel):
     """Class for dogs"""
 
     name: str
     pk: int
-    kind: DogTypeSchema
+    kind: DogType
 
     class Config:
         orm_mode = True
         use_enum_values = True
 
 
-class TimestampSchema(BaseModel):
+class Timestamp(BaseModel):
     """Class for timestamps of post queries"""
 
     id: int
