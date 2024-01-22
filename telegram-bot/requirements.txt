@@ -1,0 +1,6 @@
+aiogram
+asyncio
+fastapi
+pandas
+python-dotenv
+requests

@@ -15,9 +15,6 @@ from schema import DogType as DogTypeSchema
 from schema import Timestamp as TimestampSchema
 
 
-env_path = Path('.') / '.env'
-load_dotenv(dotenv_path=env_path)
-
 app = FastAPI()
 
 app.add_middleware(DBSessionMiddleware, db_url=os.environ['DATABASE_URL'])
@@ -30,9 +27,9 @@ def root():
         Welcome to Dogs Veterinary Service!
 
         Use one of endpoints:
-        - /post (POST) - return current timestamp
-        - /dog (GET) - get list of dogs
-        - /dog (POST) - create new dog
+        - /post/ (POST) - return current timestamp
+        - /dog/ (GET) - get list of dogs
+        - /dog/ (POST) - create new dog
         - /dog/{pk} (GET) - get dog by pk
         - /dog/{pk} (POST) - update dog by pk
     """

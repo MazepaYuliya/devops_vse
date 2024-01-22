@@ -1,0 +1,18 @@
+services:
+  telegram-bot:
+    build: ./telegram-bot
+    container_name: telegram-bot
+    environment:
+      - FAST_API_ADDR=http://fastapi-:5555
+    depends_on:
+      - fastapi
+    restart: "no"
+
+  fastapi:
+    build: .
+    container_name: fastapi
+    environment:
+      - DATABASE_URL=postgresql://yulyamazepav:QdSq0OGzs6jN@ep-ancient-limit-42165582.eu-central-1.aws.neon.tech/dogs_clinic
+    ports:
+      - '5555:5555'
+    restart: "no"
