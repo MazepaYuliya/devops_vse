@@ -3,7 +3,7 @@ services:
     build: ./telegram-bot
     container_name: telegram-bot
     environment:
-      - FAST_API_ADDR=http://fastapi-:5555
+      - FAST_API_ADDR=http://fastapi:5555
     depends_on:
       - fastapi
     restart: "no"
